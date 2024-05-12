@@ -10,11 +10,25 @@
 <script type="module">
   import NotificationMessage from './index.js';
 
+  const messageTypes = ['success', 'error'];
+
+  const getRandomInteger = (min = 0, max = Number.MAX_SAFE_INTEGER) => {
+    const minCeiled = Math.ceil(min);
+    const maxFloored = Math.floor(max);
+    return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled);
+  }
+
+  const setMesageType = () => messageTypes[getRandomInteger(0, messageTypes.length)];
+
   btn1.addEventListener('click', () => {
     const notification = new NotificationMessage('Hello World', {
       duration: 2000,
-      type: 'success'
+      type: setMesageType()
     });
+
+    const notification2 = new NotificationMessage();
+
+    console.warn(notification === notification2);
 
     notification.show();
   });
